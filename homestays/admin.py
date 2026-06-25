@@ -1,0 +1,12 @@
+from django.contrib import admin
+from .models import Homestay
+
+
+@admin.register(Homestay)
+class HomestayAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'location',
+        'price_per_night',
+        'available_rooms',
+    )

@@ -5,6 +5,7 @@ class Homestay(models.Model):
     location = models.CharField(max_length=100)
     price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
     available_rooms = models.IntegerField()
+    image = models.ImageField(upload_to="homestays/", blank=True, null=True)
 
     def __str__(self):
         return self.name

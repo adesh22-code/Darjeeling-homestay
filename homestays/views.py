@@ -15,17 +15,6 @@ def home(request):
     )
 
 
-def homestay_detail(request, id):
-    homestay = get_object_or_404(Homestay, id=id)
-
-    return render(
-        request,
-        "homestays/detail.html",
-        {
-            "homestay": homestay
-        }
-    )
-
 
 def homestay_detail(request, id):
     homestay = get_object_or_404(Homestay, id=id)

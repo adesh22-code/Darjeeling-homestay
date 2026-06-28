@@ -23,17 +23,27 @@ def homestay_detail(request, id):
         form = BookingForm(request.POST)
 
         if form.is_valid():
+
             booking = form.save(commit=False)
             booking.homestay = homestay
-            booking.save()
 
-            return render(
-                request,
-                "homestays/booking_success.html",
-                {
-                    "booking": booking
-                }
-            )
+            # Validate maximum guests
+            if booking.guests > homestay.max_guests:
+                form.add_error(
+                    "guests",
+                    f"This homestay allows a maximum of {homestay.max_guests} guests."
+                )
+
+            else:
+                booking.save()
+
+                return render(
+                    request,
+                    "homestays/booking_success.html",
+                    {
+                        "booking": booking
+                    }
+                )
 
     else:
         form = BookingForm()

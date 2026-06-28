@@ -1,6 +1,7 @@
 from .models import Homestay
 from django.shortcuts import render, get_object_or_404
 from .forms import BookingForm
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -15,6 +16,17 @@ def home(request):
     )
 
 
+@login_required
+def my_bookings(request):
+    bookings = Booking.objects.filter(user=request.user).order_by("-created_at")
+
+    return render(
+        request,
+        "homestays/my_bookings.html",
+        {
+            "bookings": bookings,
+        },
+    )
 
 
 

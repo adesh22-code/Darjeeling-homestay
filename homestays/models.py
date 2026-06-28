@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 class Homestay(models.Model):
     name = models.CharField(max_length=100)
@@ -29,6 +30,14 @@ class Booking(models.Model):
         Homestay,
         on_delete=models.CASCADE,
         related_name="bookings"
+    )
+    
+    user = models.ForeignKey(
+    settings.AUTH_USER_MODEL,
+    on_delete=models.CASCADE,
+    related_name="bookings",
+    null=True,
+    blank=True,
     )
 
     guest_name = models.CharField(max_length=100)

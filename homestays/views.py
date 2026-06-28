@@ -16,6 +16,8 @@ def home(request):
 
 
 
+
+
 def homestay_detail(request, id):
     homestay = get_object_or_404(Homestay, id=id)
 
@@ -25,7 +27,12 @@ def homestay_detail(request, id):
         if form.is_valid():
 
             booking = form.save(commit=False)
+
             booking.homestay = homestay
+
+            # Link booking to logged-in user
+            if request.user.is_authenticated:
+                booking.user = request.user
 
             # Validate maximum guests
             if booking.guests > homestay.max_guests:

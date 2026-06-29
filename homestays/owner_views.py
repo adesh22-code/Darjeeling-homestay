@@ -136,3 +136,28 @@ def delete_homestay(request, id):
             "homestay": homestay,
         },
     )
+
+@login_required
+def owner_bookings(request):
+
+    if request.user.user_type != "owner":
+        return render(
+            request,
+            "403.html",
+            status=403,
+        )
+
+    bookings = Booking.objects.filter(
+        homestay__owner=request.user
+    ).select_related(
+        "homestay",
+        "user",
+    ).order_by("-created_at")
+
+    return render(
+        request,
+        "homestays/owner_bookings.html",
+        {
+            "bookings": bookings,
+        },
+    )

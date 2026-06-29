@@ -36,8 +36,14 @@ def customer_login(request):
 
         if form.is_valid():
             user = form.get_user()
+
             login(request, user)
 
+            # Redirect owners to owner dashboard
+            if user.user_type == "owner":
+                return redirect("owner_dashboard")
+
+            # Redirect customers to homepage
             return redirect("home")
 
     else:

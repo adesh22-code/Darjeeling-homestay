@@ -107,3 +107,32 @@ def edit_homestay(request, id):
             "homestay": homestay,
         },
     )
+
+
+@login_required
+def delete_homestay(request, id):
+
+    if request.user.user_type != "owner":
+        return render(
+            request,
+            "403.html",
+            status=403,
+        )
+
+    homestay = get_object_or_404(
+        Homestay,
+        id=id,
+        owner=request.user,
+    )
+
+    if request.method == "POST":
+        homestay.delete()
+        return redirect("owner_dashboard")
+
+    return render(
+        request,
+        "homestays/delete_homestay.html",
+        {
+            "homestay": homestay,
+        },
+    )

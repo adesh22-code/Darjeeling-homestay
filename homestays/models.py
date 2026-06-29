@@ -2,12 +2,6 @@ from django.db import models
 from django.conf import settings
 
 class Homestay(models.Model):
-    STATUS_CHOICES = (
-    ("pending", "Pending"),
-    ("confirmed", "Confirmed"),
-    ("cancelled", "Cancelled"),
-    ("completed", "Completed"),
-    )
     
     owner = models.ForeignKey(
     settings.AUTH_USER_MODEL,
@@ -41,6 +35,13 @@ class Homestay(models.Model):
 
 
 class Booking(models.Model):
+    STATUS_CHOICES = (
+    ("pending", "Pending"),
+    ("confirmed", "Confirmed"),
+    ("cancelled", "Cancelled"),
+    ("completed", "Completed"),
+    )
+    
     homestay = models.ForeignKey(
         Homestay,
         on_delete=models.CASCADE,

@@ -22,4 +22,9 @@ urlpatterns = [
     owner_views.edit_homestay,
     name="edit_homestay",
     ),
+    path(
+    "owner/delete/<int:id>/",
+    owner_views.delete_homestay,
+    name="delete_homestay",
+    ),
 ]

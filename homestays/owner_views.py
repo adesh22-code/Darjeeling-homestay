@@ -161,3 +161,32 @@ def owner_bookings(request):
             "bookings": bookings,
         },
     )
+
+@login_required
+def confirm_booking(request, booking_id):
+
+    booking = get_object_or_404(
+        Booking,
+        id=booking_id,
+        homestay__owner=request.user,
+    )
+
+    booking.status = "confirmed"
+    booking.save()
+
+    return redirect("owner_bookings")
+
+
+@login_required
+def cancel_booking(request, booking_id):
+
+    booking = get_object_or_404(
+        Booking,
+        id=booking_id,
+        homestay__owner=request.user,
+    )
+
+    booking.status = "cancelled"
+    booking.save()
+
+    return redirect("owner_bookings")

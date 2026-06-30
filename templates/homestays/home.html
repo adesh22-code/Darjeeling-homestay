@@ -80,43 +80,139 @@
 
             <ul class="navbar-nav ms-auto align-items-lg-center">
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="/">Home</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#homestays">Homestays</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-
                 {% if user.is_authenticated %}
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'my_bookings' %}">
-                            My Bookings
-                        </a>
-                    </li>
+                    {% if user.user_type == "owner" %}
 
-                    <li class="nav-item">
-                        <span class="nav-link text-warning fw-bold">
-                            👋 {{ user.first_name|default:user.username }}
-                        </span>
-                    </li>
+                        <!-- OWNER MENU -->
 
-                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
-                        <a href="{% url 'logout' %}" class="btn btn-danger">
-                            Logout
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'owner_dashboard' %}">
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'owner_dashboard' %}">
+                                My Homestays
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'owner_bookings' %}">
+                                Manage Bookings
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add_homestay' %}">
+                                Add Homestay
+                            </a>
+                        </li>
+
+                        {% if user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/">
+                                Admin Panel
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li class="nav-item">
+                            <span class="nav-link text-warning fw-bold">
+                                👋 {{ user.first_name|default:user.username }}
+                            </span>
+                        </li>
+
+                        <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                            <a href="{% url 'logout' %}" class="btn btn-danger">
+                                Logout
+                            </a>
+                        </li>
+
+                    {% else %}
+
+                        <!-- CUSTOMER MENU -->
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">
+                                Home
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#homestays">
+                                Homestays
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                About
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Contact
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'my_bookings' %}">
+                                My Bookings
+                            </a>
+                        </li>
+
+                        {% if user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/">
+                                Admin Panel
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li class="nav-item">
+                            <span class="nav-link text-warning fw-bold">
+                                👋 {{ user.first_name|default:user.username }}
+                            </span>
+                        </li>
+
+                        <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                            <a href="{% url 'logout' %}" class="btn btn-danger">
+                                Logout
+                            </a>
+                        </li>
+
+                    {% endif %}
 
                 {% else %}
+
+                    <!-- VISITOR MENU -->
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#homestays">
+                            Homestays
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            About
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Contact
+                        </a>
+                    </li>
 
                     <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
                         <a href="{% url 'register' %}" class="btn btn-outline-light">

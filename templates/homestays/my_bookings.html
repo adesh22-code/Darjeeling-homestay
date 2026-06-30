@@ -15,14 +15,14 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h2>My Bookings</h2>
+            <h2>📖 My Bookings</h2>
             <p class="text-muted">
                 Welcome, {{ request.user.first_name|default:request.user.username }}
             </p>
         </div>
 
         <a href="/" class="btn btn-success">
-            Back to Home
+            ← Back to Home
         </a>
 
     </div>
@@ -35,32 +35,64 @@
 
             <div class="card-body">
 
-                <h4 class="text-success">
-                    {{ booking.homestay.name }}
-                </h4>
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <h4 class="text-success">
+                        {{ booking.homestay.name }}
+                    </h4>
+
+                    {% if booking.status == "pending" %}
+
+                        <span class="badge bg-warning text-dark fs-6">
+                            🟡 Pending
+                        </span>
+
+                    {% elif booking.status == "confirmed" %}
+
+                        <span class="badge bg-success fs-6">
+                            🟢 Confirmed
+                        </span>
+
+                    {% elif booking.status == "cancelled" %}
+
+                        <span class="badge bg-danger fs-6">
+                            🔴 Cancelled
+                        </span>
+
+                    {% elif booking.status == "completed" %}
+
+                        <span class="badge bg-primary fs-6">
+                            🔵 Completed
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+                <hr>
 
                 <p>
-                    <strong>Location:</strong>
+                    <strong>📍 Location:</strong>
                     {{ booking.homestay.location }}
                 </p>
 
                 <p>
-                    <strong>Check-in:</strong>
+                    <strong>📅 Check-in:</strong>
                     {{ booking.check_in }}
                 </p>
 
                 <p>
-                    <strong>Check-out:</strong>
+                    <strong>📅 Check-out:</strong>
                     {{ booking.check_out }}
                 </p>
 
                 <p>
-                    <strong>Guests:</strong>
+                    <strong>👥 Guests:</strong>
                     {{ booking.guests }}
                 </p>
 
                 <p>
-                    <strong>Booked On:</strong>
+                    <strong>🕒 Booked On:</strong>
                     {{ booking.created_at }}
                 </p>
 
